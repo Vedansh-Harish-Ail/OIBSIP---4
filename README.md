@@ -1,31 +1,3 @@
-<svg width="1200" height="350" viewBox="0 0 1200 350" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="grad" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#1e3c72"/>
-      <stop offset="50%" stop-color="#2a5298"/>
-      <stop offset="100%" stop-color="#7e22ce"/>
-    </linearGradient>
-  </defs>
-
-  <rect width="1200" height="350" fill="url(#grad)" rx="20" />
-
-  <!-- lock icon -->
-  <g transform="translate(120, 95) scale(3.2)" fill="white" opacity="0.9">
-    <path d="M17 8V6a6 6 0 1 1 12 0v2h3a2 2 0 0 1 2 2v18a2 2 0 0 1-2 2H14a2 2 0 0 1-2-2V10a2 2 0 0 1 2-2h3zm2 0h10V6a4 4 0 1 0-10 0v2zm5 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-  </g>
-
-  <!-- Title -->
-  <text x="430" y="180" fill="white" font-size="54" font-weight="700" font-family="Segoe UI, sans-serif">
-    Login Authentication System
-  </text>
-
-  <!-- subtitle -->
-  <text x="430" y="235" fill="#e5e7eb" font-size="26" font-family="Segoe UI, sans-serif">
-    HTML • CSS • JavaScript • LocalStorage • SHA-256
-  </text>
-</svg>
-
-
 # 🔐 Login Authentication (Local Demo)
 
 A minimal and elegant **login & registration system** built using **HTML, CSS, and vanilla JavaScript**.
@@ -117,13 +89,13 @@ Displays:
 ## 📸 Screenshots
 
 ### 🔐 Login Screen
-<img src="assets/Login.png" alt="Login UI" width="900" style="border-radius:14px; box-shadow:0 6px 20px rgba(0,0,0,0.18);" />
+<img src="assets/Login.png" alt="Login UI" width="700" style="border-radius:14px; box-shadow:0 6px 20px rgba(0,0,0,0.15);" />
 
 ### 📝 Create Account Screen
-<img src="assets/Create Acc.png" alt="Register UI" width="900" style="border-radius:14px; box-shadow:0 6px 20px rgba(0,0,0,0.18);" />
+<img src="assets/Create Acc.png" alt="Register UI" width="700" style="border-radius:14px; box-shadow:0 6px 20px rgba(0,0,0,0.15);" />
 
 ### 🟢 Signed-In Dashboard
-<img src="assets/signed-in.png" alt="Signed In Dashboard" width="900" style="border-radius:14px; box-shadow:0 6px 20px rgba(0,0,0,0.18);" />
+<img src="assets/signed-in.png" alt="Signed In Dashboard" width="700" style="border-radius:14px; box-shadow:0 6px 20px rgba(0,0,0,0.15);" />
 
 ---
 
