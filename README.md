@@ -1,4 +1,30 @@
-<img width="678" height="554" alt="Login" src="https://github.com/user-attachments/assets/eb844d61-be2d-4923-8628-05661dad4bb2" />---
+<svg width="1200" height="350" viewBox="0 0 1200 350" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1e3c72"/>
+      <stop offset="50%" stop-color="#2a5298"/>
+      <stop offset="100%" stop-color="#7e22ce"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="350" fill="url(#grad)" rx="20" />
+
+  <!-- lock icon -->
+  <g transform="translate(120, 95) scale(3.2)" fill="white" opacity="0.9">
+    <path d="M17 8V6a6 6 0 1 1 12 0v2h3a2 2 0 0 1 2 2v18a2 2 0 0 1-2 2H14a2 2 0 0 1-2-2V10a2 2 0 0 1 2-2h3zm2 0h10V6a4 4 0 1 0-10 0v2zm5 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+  </g>
+
+  <!-- Title -->
+  <text x="430" y="180" fill="white" font-size="54" font-weight="700" font-family="Segoe UI, sans-serif">
+    Login Authentication System
+  </text>
+
+  <!-- subtitle -->
+  <text x="430" y="235" fill="#e5e7eb" font-size="26" font-family="Segoe UI, sans-serif">
+    HTML • CSS • JavaScript • LocalStorage • SHA-256
+  </text>
+</svg>
+
 
 # 🔐 Login Authentication (Local Demo)
 
