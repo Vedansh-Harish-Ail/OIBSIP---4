@@ -88,19 +88,16 @@ Displays:
 
 ---
 
-## 📷 Screenshots
+## 📸 Screenshots
 
-### Login UI
+### 🔐 Login Screen
+<img src="assets/login.png" alt="Login UI" width="900" style="border-radius:14px; box-shadow:0 6px 20px rgba(0,0,0,0.18);" />
 
-![login](https://dummyimage.com/900x500/f3f4f6/111\&text=Login+Screen)
+### 📝 Create Account Screen
+<img src="assets/register.png" alt="Register UI" width="900" style="border-radius:14px; box-shadow:0 6px 20px rgba(0,0,0,0.18);" />
 
-### Create Account
-
-![register](https://dummyimage.com/900x500/f3f4f6/111\&text=Register+Screen)
-
-### Signed-In Dashboard
-
-![dashboard](https://dummyimage.com/900x500/f3f4f6/111\&text=Signed+In)
+### 🟢 Signed-In Dashboard
+<img src="assets/dashboard.png" alt="Signed In Dashboard" width="900" style="border-radius:14px; box-shadow:0 6px 20px rgba(0,0,0,0.18);" />
 
 ---
 
@@ -126,9 +123,3 @@ MIT License. Free to use, learn, and modify.
 Built by **Vedansh Harish Ail**.
 
 ---
-
-If you want:
-✅ A matching banner (PNG or SVG)
-✅ Dark theme version of README
-✅ GitHub badges section
-Just tell me: **"Add badges"** or **"Give dark theme README"**
