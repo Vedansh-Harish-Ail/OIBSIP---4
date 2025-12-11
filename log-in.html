@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>log-in authentication</title>
+<style>
+  :root{
+    --bg:#f3f4f6; --card:#ffffff; --accent:#0f62fe; --muted:#6b7280; --danger:#dc2626;
+    --radius:12px; --shadow:0 8px 30px rgba(2,6,23,.08);
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;background:var(--bg);color:#0b1220}
+  .center{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+  .card{width:100%;max-width:420px;background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:28px}
+  .brand{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+  .logo{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#7cc9ff);display:flex;align-items:center;justify-content:center;color:white;font-weight:700}
+  h1{font-size:20px;margin:0}
+  p.lead{margin:6px 0 18px;color:var(--muted);font-size:13px}
+  form{display:grid;gap:12px}
+  input{height:44px;padding:0 12px;border-radius:8px;border:1px solid #e6eef7;background:#fff;font-size:15px}
+  .row{display:flex;gap:8px;align-items:center}
+  .btn{height:44px;border:0;border-radius:8px;padding:0 14px;cursor:pointer;font-weight:600}
+  .btn-primary{background:var(--accent);color:#fff}
+  .ghost{background:transparent;border:0;color:var(--accent);cursor:pointer;font-size:14px;margin-left: 40%;}
+  .muted{color:var(--muted);font-size:13px}
+  .hint{color:var(--muted);font-size:12px;margin-top:6px}
+  .error{color:var(--danger);font-size:13px}
+  .hidden{display:none}
+  .secure{display:grid;gap:12px}
+  .actions{display:flex;gap:8px;align-items:center;margin-top:8px}
+  footer{margin-top:14px;text-align:center;color:var(--muted);font-size:12px}
+  @media (max-width:420px){ .card{padding:20px} }
+
+</style>
+</head>
+<body>
+  <div class="center">
+    <div class="card" id="auth-card">
+      <div class="brand">
+        <div class="logo">V</div>
+        <div>
+          <h1 id="view-title">Sign in</h1>
+          <p class="lead" id="view-sub">Access your account</p>
+        </div>
+      </div>
+      <!-- form -->
+      <form id="form">
+        <input id="user" placeholder="Username" autocomplete="off" />
+        <input id="email" placeholder="Email (register only)" class="hidden" autocomplete="email" />
+        <input id="pwd" type="password" placeholder="Password" autocomplete="new-password" />
+
+        <div class="row">
+          <button id="submit" class="btn btn-primary" type="submit">Sign in</button>
+          <button id="toggle" type="button" class="ghost">Create account</button>
+        </div>
+        <div id="msg" class="hint"></div>
+        <div id="err" class="error" role="alert" aria-live="polite"></div>
+      </form>
+
+      <footer>Minimal • Local demo • Not for production</footer>
+    </div>
+    <!-- protected -->
+    <div class="card hidden" id="secure-card" aria-hidden="true">
+      <div class="secure">
+        <div>
+          <strong id="who"></strong>
+          <div class="muted" id="when"></div>
+        </div>
+        <p class="muted">You’re signed in. This area is protected.</p>
+        <div class="actions">
+          <button id="logout" class="btn">Sign out</button>
+          <button id="delete" class="ghost">Delete account</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<script>
+const $ = id => document.getElementById(id);
+const USERS = 'users_v1', AUTH = 'auth_v1';
+const form = $('form'), userEl = $('user'), emailEl = $('email'), pwdEl = $('pwd');
+const submitBtn = $('submit'), toggleBtn = $('toggle'), msg = $('msg'), err = $('err');
+const authCard = $('auth-card'), secureCard = $('secure-card'), who = $('who'), whenEl = $('when');
+
+let isRegister = false;
+
+async function hash(s){ const enc=new TextEncoder().encode(s); const b=await crypto.subtle.digest('SHA-256',enc); return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('') }
+function loadUsers(){ try{return JSON.parse(localStorage.getItem(USERS)||'{}')}catch{return{}} }
+function saveUsers(u){ localStorage.setItem(USERS, JSON.stringify(u)) }
+function setAuth(u){ localStorage.setItem(AUTH, u) }
+function getAuth(){ return localStorage.getItem(AUTH) }
+function clearAuth(){ localStorage.removeItem(AUTH) }
+function showErr(t){ err.textContent=t }
+function clearErr(){ err.textContent='' }
+function showMsg(t){ msg.textContent=t }
+
+toggleBtn.addEventListener('click', ()=>{
+  isRegister = !isRegister;
+  emailEl.classList.toggle('hidden', !isRegister);
+  $('view-title').textContent = isRegister ? 'Create account' : 'Sign in';
+  $('view-sub').textContent = isRegister ? 'Create a new account' : 'Access your account';
+  submitBtn.textContent = isRegister ? 'Create' : 'Sign in';
+  toggleBtn.textContent = isRegister ? 'Have an account? Sign in' : 'Create account';
+  clearErr(); showMsg('');
+});
+
+form.addEventListener('submit', async e=>{
+  e.preventDefault(); clearErr(); showMsg('');
+  const username = userEl.value.trim(); const email = emailEl.value.trim(); const pwd = pwdEl.value;
+  if(!username || !pwd){ showErr('Provide username and password'); return; }
+  const users = loadUsers();
+  if(isRegister){
+    if(users[username]){ showErr('Username already taken'); return; }
+    if(!email || !/^\S+@\S+\.\S+$/.test(email)){ showErr('Provide a valid email'); return; }
+    const h = await hash(pwd);
+
+    users[username] = { email, hash: h, createdAt: new Date().toISOString() };
+saveUsers(users);
+
+// Do NOT auto-login
+showMsg("Account created. Please sign in.");
+
+// Switch to login mode
+isRegister = false;
+emailEl.classList.add("hidden");
+$("title").textContent = "Sign in";
+$("subtitle").textContent = "Access your account";
+submitBtn.textContent = "Sign in";
+toggleBtn.textContent = "Create an account";
+
+// Clear form
+form.reset();
+
+    showMsg('Account created');
+
+  } else {
+    const u = users[username];
+    if(!u){ showErr('No such user'); return; }
+    const h = await hash(pwd);
+    if(h !== u.hash){ showErr('Incorrect password'); return; }
+    setAuth(username); showSecure(username); showMsg('Signed in');
+  }
+  form.reset();
+});
+
+function showSecure(username){
+  const users = loadUsers();
+  const u = users[username] || {};
+  who.textContent = username;
+  whenEl.textContent = u.createdAt ? 'Member since '+ new Date(u.createdAt).toLocaleDateString() : '';
+  authCard.classList.add('hidden'); secureCard.classList.remove('hidden'); secureCard.removeAttribute('aria-hidden');
+}
+
+$('logout').addEventListener('click', ()=>{
+  clearAuth();
+  secureCard.classList.add('hidden'); authCard.classList.remove('hidden');
+  showMsg('Signed out');
+});
+
+$('delete').addEventListener('click', ()=>{
+  const current = getAuth(); if(!current) return;
+  if(!confirm('Delete account "'+current+'"?')) return;
+  const users = loadUsers(); delete users[current]; saveUsers(users); clearAuth();
+  secureCard.classList.add('hidden'); authCard.classList.remove('hidden'); showMsg('Account removed');
+});
+
+/* init */
+(function init(){
+  const cur = getAuth();
+  const users = loadUsers();
+  if(cur && users[cur]) showSecure(cur);
+})();
+</script>
+</body>
+</html>
