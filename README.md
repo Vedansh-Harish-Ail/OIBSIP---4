@@ -1,4 +1,4 @@
----
+<img width="678" height="554" alt="Login" src="https://github.com/user-attachments/assets/eb844d61-be2d-4923-8628-05661dad4bb2" />---
 
 # 🔐 Login Authentication (Local Demo)
 
@@ -91,13 +91,13 @@ Displays:
 ## 📸 Screenshots
 
 ### 🔐 Login Screen
-<img src="assets/login.png" alt="Login UI" width="900" style="border-radius:14px; box-shadow:0 6px 20px rgba(0,0,0,0.18);" />
+<img src="assets/Login.png" alt="Login UI" width="900" style="border-radius:14px; box-shadow:0 6px 20px rgba(0,0,0,0.18);" />
 
 ### 📝 Create Account Screen
-<img src="assets/register.png" alt="Register UI" width="900" style="border-radius:14px; box-shadow:0 6px 20px rgba(0,0,0,0.18);" />
+<img src="assets/Create Acc.png" alt="Register UI" width="900" style="border-radius:14px; box-shadow:0 6px 20px rgba(0,0,0,0.18);" />
 
 ### 🟢 Signed-In Dashboard
-<img src="assets/dashboard.png" alt="Signed In Dashboard" width="900" style="border-radius:14px; box-shadow:0 6px 20px rgba(0,0,0,0.18);" />
+<img src="assets/signed-in.png" alt="Signed In Dashboard" width="900" style="border-radius:14px; box-shadow:0 6px 20px rgba(0,0,0,0.18);" />
 
 ---
 
